@@ -1,0 +1,18 @@
+Package: HealthyDietDashboard
+Type: Shiny
+Title: Global Cost of a Healthy Diet (R Shiny Dashboard)
+Version: 1.0.0
+Description: An R Shiny dashboard for exploring the cost of a healthy diet
+    across countries and regions from 2017 to 2022, using FAO and World Bank data.
+Authors@R: person("Hooman", "Esteki", role = c("aut", "cre"))
+Depends:
+    R (>= 4.1.0)
+Imports:
+    shiny,
+    bslib,
+    dplyr,
+    ggplot2,
+    DT,
+    readr,
+    scales
+License: MIT
