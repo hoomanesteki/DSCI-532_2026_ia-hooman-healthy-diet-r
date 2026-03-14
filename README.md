@@ -1,94 +1,93 @@
 # Global Cost of a Healthy Diet (R Shiny)
 
 **Author:** Hooman Esteki
+**Course:** DSCI 532 Individual Assignment, UBC MDS 2026
 
-A Shiny for R dashboard that explores the global cost of a healthy diet across countries and regions from 2017 to 2022. Data comes from the FAO and World Bank, with costs reported in PPP-adjusted USD per day.
-
-Deployed app: [Add your Posit Connect Cloud URL here after deploying]
+Deployed app: https://019cedac-9b39-3db8-3478-070e91a5f49a.share.connect.posit.cloud/
 
 ## Purpose
 
-This dashboard lets you filter the dataset by year range, world region, and cost category to understand how much a nutritionally adequate diet costs in different parts of the world. The key questions it addresses are:
+This is a Shiny for R dashboard that explores how much a nutritionally adequate diet costs across countries and regions from 2017 to 2022. All costs are reported in PPP-adjusted USD per day, using data from the FAO Cost and Affordability of a Healthy Diet indicators and World Bank country metadata.
 
-- Which regions have the most expensive healthy diets?
-- How have costs changed over time?
+The app re-implements the core functionality of the group project (DSCI-532 Group 29, which used Shiny for Python) in Shiny for R, as required by the individual assignment.
+
+The main questions the dashboard helps answer:
+
+- Which regions have the highest average healthy diet costs?
+- How have those costs changed over time?
 - How many countries fall into each cost tier?
 
-The app re-implements the core functionality of the group project (DSCI-532 Group 29) using Shiny for R instead of Shiny for Python.
+## App Features
 
-## Features
+The sidebar has three input controls that filter the entire dashboard at once:
 
-- Year range slider to narrow down the time window
-- Region and cost category dropdowns that filter all outputs at once
-- Four KPI cards showing the number of countries, average cost, minimum cost, and maximum cost
-- A bar chart of average daily diet cost by region
-- A line trend chart showing how average costs have changed year over year per region
-- An interactive data table with pagination and search
+- Year range slider (2017 to 2024)
+- Region dropdown (All regions or a specific one)
+- Cost category dropdown (All, Low Cost, High Cost, etc.)
+- Reset Filters button to return all inputs to their defaults
 
-## Prerequisites
+The main panel shows:
 
-- R version 4.1.0 or higher
-- An internet connection the first time you run (to download Google Fonts via `bslib`)
+- Four KPI value boxes: number of countries, average cost per day, minimum cost, and maximum cost
+- A horizontal bar chart of average diet cost by region
+- A line trend chart showing how average costs changed year over year per region
+- An interactive data table with search, sort, and pagination
 
-## Install Packages
+All outputs react to the reactive calculation that filters the dataset based on the three inputs.
 
-Open R or RStudio and run:
+## How to Install Packages and Run Locally
+
+You need R version 4.1.0 or higher.
+
+**Step 1: Clone the repository**
+
+```bash
+git clone https://github.com/hoomanesteki/DSCI-532_2026_ia-hooman-healthy-diet-r.git
+cd DSCI-532_2026_ia-hooman-healthy-diet-r
+```
+
+**Step 2: Install required packages**
+
+Open R or RStudio in the project folder and run:
 
 ```r
 install.packages(c("shiny", "bslib", "dplyr", "ggplot2", "DT", "readr", "scales"))
 ```
 
-## Run the App Locally
-
-Clone this repository and navigate into the project folder, then run:
+**Step 3: Run the app**
 
 ```r
 shiny::runApp()
 ```
 
-Or open `app.R` in RStudio and click the **Run App** button.
+Or open `app.R` in RStudio and click the **Run App** button at the top of the editor.
 
-## Deploying to Posit Connect Cloud
+## How to Deploy to Posit Connect Cloud
 
-1. Install the rsconnect package if you do not have it yet:
+This app is deployed via GitHub integration on Posit Connect Cloud. The `manifest.json` file in the repo handles all dependency resolution automatically.
 
-```r
-install.packages("rsconnect")
-```
+To redeploy or deploy your own copy:
 
-2. Set up your Posit Connect Cloud account at https://connect.posit.cloud and copy your API key.
+1. Go to https://connect.posit.cloud and sign in
+2. Click Publish, select Shiny, then connect your GitHub repo
+3. Set branch to `main` and primary file to `app.R`
+4. Click Deploy
 
-3. Authenticate from R:
-
-```r
-rsconnect::setAccountInfo(
-  name   = "your-account-name",
-  token  = "your-token",
-  secret = "your-secret"
-)
-```
-
-4. Deploy:
-
-```r
-rsconnect::deployApp(appName = "healthy-diet-r")
-```
-
-After deploying, paste the live URL into the GitHub repo About section and replace the placeholder link at the top of this README.
-
-For the dependency file approach using renv, follow the instructions at: https://docs.posit.co/connect-cloud/how-to/r/dependencies.html
+For more detail on R dependency files for Connect Cloud, see: https://docs.posit.co/connect-cloud/how-to/r/dependencies.html
 
 ## Data
 
-The dataset `data/cleaned_price_of_healthy_diet.csv` is derived from the FAO Cost and Affordability of a Healthy Diet indicators, joined with World Bank country metadata. It covers roughly 170 countries across multiple years.
+The dataset `data/cleaned_price_of_healthy_diet.csv` covers roughly 170 countries across multiple years. It was derived from the FAO Cost and Affordability of a Healthy Diet indicators joined with World Bank country and region metadata. Costs are in PPP-adjusted USD per day.
 
 ## Project Structure
 
 ```
-healthy-diet-r/
-   app.R                              main Shiny app
-   DESCRIPTION                        package dependency list for deployment
-   README.md                          this file
+DSCI-532_2026_ia-hooman-healthy-diet-r/
+   app.R                                    main Shiny for R application
+   DESCRIPTION                              R package dependency list
+   manifest.json                            Posit Connect Cloud deployment manifest
+   README.md                                this file
+   renv.lock                                renv lockfile with pinned package versions
    data/
-      cleaned_price_of_healthy_diet.csv   processed dataset
+      cleaned_price_of_healthy_diet.csv     processed dataset
 ```
