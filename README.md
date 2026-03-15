@@ -1,4 +1,4 @@
-# Global Cost of a Healthy Diet (R Shiny)
+# Global Cost of a Healthy Diet (R  Shiny)
 
 **Author:** Hooman Esteki
 **Course:** DSCI 532 Individual Assignment, UBC MDS 2026
